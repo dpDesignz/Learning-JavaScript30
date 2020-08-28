@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Follow Along Nav</title>
+</head>
+
+<body>
+  <h2>Cool</h2>
+  <nav class="top">
+    <div class="dropdownBackground">
+      <span class="arrow"></span>
+    </div>
+
+    <ul class="cool">
+      <li>
+        <a href="#">About Me</a>
+        <div class="dropdown dropdown1">
+          <div class="bio">
+            <img src="https://logo.clearbit.com/wesbos.com">
+            <p>Damien loves being a web developer. He likes learning new things. He also loves photography and music!
+            </p>
+          </div>
+        </div>
+      </li>
+      <li>
+        <a href="#">Courses</a>
+        <ul class="dropdown courses">
+          <li>
+            <span class="code">JS30</span>
+            <a href="https://javascript30.com/">JavaScript 30</a>
+          </li>
+          <li>
+            <span class="code">TS</span>
+            <a href="https://www.udemy.com/course/understanding-typescript/">TypeScript 2020</a>
+          </li>
+          <li>
+            <span class="code">VUE</span>
+            <a href="https://www.udemy.com/course/vuejs-2-the-complete-guide/">Vue JS</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="#">Other Links</a>
+        <ul class="dropdown dropdown3">
+          <li><a class="button" href="http://twitter.com/dpDesignz">Twitter</a></li>
+          <li><a class="button" href="http://facebook.com/dpDesignz">Facebook</a></li>
+          <li><a class="button" href="http://dpdesignz.co">Website</a></li>
+          <li><a class="button" href="http://instagram.com/damien.peden">Instagram</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+
+  <style>
+    html {
+      box-sizing: border-box;
+      font-family: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
+    }
+
+    *,
+    *:before,
+    *:after {
+      box-sizing: inherit;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        linear-gradient(45deg, hsla(340, 100%, 55%, 1) 0%, hsla(340, 100%, 55%, 0) 70%),
+        linear-gradient(135deg, hsla(225, 95%, 50%, 1) 10%, hsla(225, 95%, 50%, 0) 80%),
+        linear-gradient(225deg, hsla(140, 90%, 50%, 1) 10%, hsla(140, 90%, 50%, 0) 80%),
+        linear-gradient(315deg, hsla(35, 95%, 55%, 1) 100%, hsla(35, 95%, 55%, 0) 70%);
+    }
+
+    h2 {
+      margin-top: 0;
+      padding-top: .8em;
+    }
+
+    nav {
+      position: relative;
+      perspective: 600px;
+    }
+
+    .cool>li>a {
+      color: yellow;
+      text-decoration: none;
+      font-size: 20px;
+      background: rgba(0, 0, 0, 0.2);
+      padding: 10px 20px;
+      display: inline-block;
+      margin: 20px;
+      border-radius: 5px;
+    }
+
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    .cool>li {
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+
+    .dropdown {
+      opacity: 0;
+      position: absolute;
+      overflow: hidden;
+      padding: 20px;
+      top: -20px;
+      border-radius: 2px;
+      transition: all 0.5s;
+      transform: translateY(100px);
+      will-change: opacity;
+      display: none;
+    }
+
+    .trigger-enter .dropdown {
+      display: block;
+    }
+
+    .trigger-enter-active .dropdown {
+      opacity: 1;
+    }
+
+    .dropdownBackground {
+      width: 100px;
+      height: 100px;
+      position: absolute;
+      background: #fff;
+      border-radius: 4px;
+      box-shadow: 0 50px 100px rgba(50, 50, 93, .1), 0 15px 35px rgba(50, 50, 93, .15), 0 5px 15px rgba(0, 0, 0, .1);
+      transition: all 0.3s, opacity 0.1s, transform 0.2s;
+      transform-origin: 50% 0;
+      display: flex;
+      justify-content: center;
+      opacity: 0;
+    }
+
+    .dropdownBackground.open {
+      opacity: 1;
+    }
+
+    .arrow {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      display: block;
+      background: white;
+      transform: translateY(-50%) rotate(45deg);
+    }
+
+    .bio {
+      min-width: 500px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      line-height: 1.7;
+    }
+
+    .bio img {
+      float: left;
+      margin-right: 20px;
+    }
+
+    .courses {
+      min-width: 300px;
+    }
+
+    .courses li {
+      padding: 10px 0;
+      display: block;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    }
+
+    .dropdown a {
+      text-decoration: none;
+      color: #ffc600;
+    }
+
+    a.button {
+      background: black;
+      display: block;
+      padding: 10px;
+      color: white;
+      margin-bottom: 10px;
+    }
+
+    /* Matches Twitter, TWITTER, twitter, tWitter, TWiTTeR... */
+    .button[href*=twitter] {
+      background: #019FE9;
+    }
+
+    .button[href*=facebook] {
+      background: #3B5998;
+    }
+
+    .button[href*=courses] {
+      background: #ffc600;
+    }
+  </style>
+
+  <script>
+    const triggers = document.querySelectorAll('.cool > li');
+    const background = document.querySelector('.dropdownBackground');
+    const nav = document.querySelector('.top');
+
+    function handleEnter() {
+      // Start the enter animation
+      this.classList.add('trigger-enter');
+      setTimeout(() => {
+        if (this.classList.contains('trigger-enter'))
+          this.classList.add('trigger-enter-active');
+      }, 150);
+      // Show the white background
+      background.classList.add('open');
+
+      // Get the dropdown for the hovered menu item
+      const dropdown = this.querySelector('.dropdown');
+
+      // Get data about the hovered menu item
+      const dropdownCoords = dropdown.getBoundingClientRect();
+
+      // Get data about the nav location
+      const navCoords = nav.getBoundingClientRect();
+
+      // Set the coords going to be used
+      const coords = {
+        height: dropdownCoords.height,
+        width: dropdownCoords.width,
+        top: dropdownCoords.top - navCoords.top,
+        left: dropdownCoords.left - navCoords.left,
+      };
+
+      // Set the styling to the background
+      background.style.width = `${coords.width}px`;
+      background.style.height = `${coords.height}px`;
+      background.style.transform = `translate(${coords.left}px, ${coords.top}px)`;
+    }
+
+    function handleLeave() {
+      // Hide the menu item and background
+      this.classList.remove('trigger-enter', 'trigger-enter-active');
+      background.classList.remove('open');
+    }
+
+    triggers.forEach(trigger =>
+      trigger.addEventListener('mouseenter', handleEnter)
+    );
+    triggers.forEach(trigger =>
+      trigger.addEventListener('mouseleave', handleLeave)
+    );
+  </script>
+  </script>
+
+</body>
+
+</html>
