@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Click and Drag</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="items">
+    <div class="item item1">01</div>
+    <div class="item item2">02</div>
+    <div class="item item3">03</div>
+    <div class="item item4">04</div>
+    <div class="item item5">05</div>
+    <div class="item item6">06</div>
+    <div class="item item7">07</div>
+    <div class="item item8">08</div>
+    <div class="item item9">09</div>
+    <div class="item item10">10</div>
+    <div class="item item11">11</div>
+    <div class="item item12">12</div>
+    <div class="item item13">13</div>
+    <div class="item item14">14</div>
+    <div class="item item15">15</div>
+    <div class="item item16">16</div>
+    <div class="item item17">17</div>
+    <div class="item item18">18</div>
+    <div class="item item19">19</div>
+    <div class="item item20">20</div>
+    <div class="item item21">21</div>
+    <div class="item item22">22</div>
+    <div class="item item23">23</div>
+    <div class="item item24">24</div>
+    <div class="item item25">25</div>
+  </div>
+
+  <script>
+    const itemsWrapper = document.querySelector('.items'); // Get the wrapper
+    let isClicked = false; // Set the click state
+    let startX; // Init the start X distance
+    let scrolledLeft; // Init the scrolled left distance
+
+    itemsWrapper.addEventListener('mousedown', e => {
+      isClicked = true;
+      itemsWrapper.classList.add('active');
+      // Set the left offset start
+      startX = e.pageX - itemsWrapper.offsetLeft;
+      // Set the scrolled left distance
+      scrolledLeft = itemsWrapper.scrollLeft;
+    });
+
+    itemsWrapper.addEventListener('mouseleave', () => {
+      isClicked = false;
+      itemsWrapper.classList.remove('active');
+    });
+
+    itemsWrapper.addEventListener('mouseup', () => {
+      isClicked = false;
+      itemsWrapper.classList.remove('active');
+    });
+
+    itemsWrapper.addEventListener('mousemove', e => {
+      if (!isClicked) return; // Stop the function running if not clicked down
+      e.preventDefault();
+      const x = e.pageX - itemsWrapper.offsetLeft;
+      // Note how far has been moved since the start
+      const walk = (x - startX) * 2;
+      // Slide the contents to the left
+      itemsWrapper.scrollLeft = scrolledLeft - walk;
+    });
+  </script>
+
+</body>
+
+</html>

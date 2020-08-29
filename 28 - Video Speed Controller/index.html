@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Video Speed Scrubber</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <video class="flex" width="765" height="430" src="http://clips.vorwaerts-gmbh.de/VfE_html5.mp4" loop
+      controls></video>
+    <div class="speed">
+      <div class="speed-bar">1×</div>
+    </div>
+  </div>
+
+  <script>
+    const videoSpeed = document.querySelector('.speed');
+    const videoSpeedBar = document.querySelector('.speed-bar');
+    const videoElm = document.querySelector('.flex');
+
+    // Add event listener
+    videoSpeed.addEventListener('mousemove', function(e) {
+      // Can't use the shorthand functions as it gets jittery. Look into why?
+      // Get mouse Y position on page
+      const y = e.pageY - this.offsetTop;
+      // Get the percent of the div
+      const percent = y / this.offsetHeight;
+      // Set the min/max playback speed values
+      const min = 0.4;
+      const max = 4;
+      // Set height in percentage string
+      const height = `${Math.round(percent * 100)}%`;
+      // Set the playback rate
+      const playbackRate = percent * (max - min) + min;
+      // Set the height of the speed bar
+      videoSpeedBar.style.height = height;
+      // Set the playback rate to the bar
+      videoSpeedBar.textContent = `${playbackRate.toFixed(2)}x`;
+      // Set the playback rate to the video
+      videoElm.playbackRate = playbackRate;
+    });
+  </script>
+</body>
+
+</html>
